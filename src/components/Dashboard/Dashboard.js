@@ -3,6 +3,7 @@ import  { Link } from 'react-router-dom'
 
 import routes from '../../routes'
 import image from '../../Images/header_logo.png'
+import HomeListings from './HomeListings'
 
 
 class Dashboard extends Component {
@@ -21,6 +22,7 @@ class Dashboard extends Component {
                     <button className = 'reset'> Reset </button>
                 </div>
                 <div className = 'home-listings'> Home Listings </div>
+                <HomeListings/>
             </div>
         )
     }

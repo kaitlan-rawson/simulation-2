@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { updatePropertyName, updatePropertyDesc } from '../../ducks/reducer'
 
 class Step1 extends Component {
     
+    handleOnClick(){
+        
+    }
+
     render(){
         return(
             <div>
@@ -15,11 +21,19 @@ class Step1 extends Component {
                     <div><input/></div>
                 </div>
                 <div className = 'step-button'>
-                    <Link to = '/wizard/2'><button className = 'next-step'>Next Step</button></Link>
+                    <Link to = '/wizard/2'><button 
+                        className = 'next-step'>Next Step</button></Link>
                 </div>
             </div>
         )
     }
 }
 
+function mapStateToProps(state){
+    return{
+        updatePropertyName: state.updatePropertyName,
+        updatePropertyDesc: state.updatePropertyDesc
+    }
+
+}
 export default Step1

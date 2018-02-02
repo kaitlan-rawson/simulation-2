@@ -6,9 +6,9 @@ const initialState = {
     state: '',
     zip: '',
     imageUrl: '',
-    loanAmount: '',
-    monthlyMortgage: '',
-    desiredRent: '',
+    loanAmount: 0,
+    monthlyMortgage: 0,
+    desiredRent: 0,
     listings: [],
 
 }
@@ -30,12 +30,19 @@ const LISTINGS = 'LISTINGS'
 
 //--------Action Creators--------// 
 
+export function updatePropertyName(name){
+    return{
+        type: PROPERTY_NAME,
+        payload: name
+    }
+}
 
 //--------Reducer--------// 
 
 function reducer(state=initialState, action){
     switch(action.type){
-
+        case PROPERTY_NAME:
+            return Object.assign({},state,{propertyName: action.payload})
     }
 }
 
