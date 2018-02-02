@@ -6,7 +6,9 @@ class Step2 extends Component {
     render(){
         return(
             <div>
-                Add new listing
+                Add new listing 
+                <Link to = '/'><button className = 'logout'>Logout</button></Link> 
+                <Link to = '/dashboard'><button className = 'logout'>Cancel</button></Link>
                 <div className = 'step1'>Step 2</div>
                 <div className = 'steps'> Address 
                     <div><input/></div>

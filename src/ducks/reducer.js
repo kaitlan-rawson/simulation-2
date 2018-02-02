@@ -37,6 +37,14 @@ export function updatePropertyName(name){
     }
 }
 
+export function updatePropertyDesc(desc){
+    return{
+        type: PROPERTY_DESC,
+        payload: desc
+    }
+}
+
+
 //--------Reducer--------// 
 
 function reducer(state=initialState, action){

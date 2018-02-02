@@ -2,17 +2,20 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { updatePropertyName, updatePropertyDesc } from '../../ducks/reducer'
+import axios from 'axios'
 
 class Step1 extends Component {
     
     handleOnClick(){
-        
+        axios.post('http://localhost:3030/api/houser/newPropertyName')
     }
 
     render(){
         return(
             <div>
                 Add a new Listing
+                <Link to = '/'><button className = 'logout'>Logout</button></Link>
+                <Link to = '/dashboard'><button className = 'logout'>Cancel</button></Link>
                 <div className = 'step1'>Step 1</div>
                 <div className = 'steps'> Property Name 
                     <div><input/></div>
@@ -36,4 +39,4 @@ function mapStateToProps(state){
     }
 
 }
-export default Step1
+export default connect(mapStateToProps, {updatePropertyName,updatePropertyDesc})(Step1)

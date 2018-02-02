@@ -6,6 +6,8 @@ class Step3 extends Component {
     render(){
         return(
             <div>
+                   <Link to = '/'><button className = 'logout'>Logout</button></Link>
+                   <Link to = '/dashboard'><button className = 'logout'>Cancel</button></Link>
                 IMAGE HERE
                 <div className = 'steps'>
                     Image Url

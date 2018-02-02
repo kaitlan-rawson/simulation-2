@@ -22,6 +22,8 @@ app.use(bodyParser.json());
 //--------Axios--------//
 app.get('/api/houser/users', controller.getAllUsers)
 app.get('/api/houser/properties', controller.getAllProperties)
+app.post('/api/houser/newPropertyName', controller.addPropertyName)
+app.post('api/houser/newPropertyDesc', controller.addPropertyDesc)
 
 //--------Listen--------//
 app.listen(port,()=>{

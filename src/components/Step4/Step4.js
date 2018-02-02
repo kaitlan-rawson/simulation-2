@@ -7,6 +7,8 @@ class Step4 extends Component {
         return(
             <div>
                 Add new listing
+                <Link to = '/'><button className = 'logout'>Logout</button></Link>
+                <Link to = '/dashboard'><button className = 'logout'>Cancel</button></Link>
                 <div className = 'step1'>Step 4</div>
                 <div className = 'steps'> Loan Amount
                     <div><input/></div>
