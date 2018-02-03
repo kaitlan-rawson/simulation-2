@@ -51,6 +51,8 @@ function reducer(state=initialState, action){
     switch(action.type){
         case PROPERTY_NAME:
             return Object.assign({},state,{propertyName: action.payload})
+        default: 
+            return state
     }
 }
 

@@ -6,9 +6,6 @@ import axios from 'axios'
 
 class Step1 extends Component {
     
-    handleOnClick(){
-        axios.post('http://localhost:3030/api/houser/newPropertyName')
-    }
 
     render(){
         return(
@@ -33,9 +30,9 @@ class Step1 extends Component {
 }
 
 function mapStateToProps(state){
+    console.log(state)
     return{
-        updatePropertyName: state.updatePropertyName,
-        updatePropertyDesc: state.updatePropertyDesc
+        propertyName: state.propertyName,
     }
 
 }
