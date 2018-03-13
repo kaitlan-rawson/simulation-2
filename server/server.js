@@ -5,25 +5,44 @@ const express = require('express'),
     , massive = require('massive')
     , dotenv = require('dotenv')
     , app = express()
+    , session = require('express-session')
 
     require('dotenv').config()
 
-
-//--------JS Imports---------//
-const controller = require('./controllers/controllers')
-
 //--------Middleware--------//
-massive(process.env.CONNECTION_STRING).then(dbInstance=>{app.set('db',dbInstance)
-var dbInstance = app.get('db')
-})
+massive(process.env.CONNECTION_STRING).then(db=>{app.set('db',db)})
 
 app.use(bodyParser.json());
+app.use(express.static( `${__dirname}../build` ));
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true
+}))
 
-//--------Axios--------//
-app.get('/api/houser/users', controller.getAllUsers)
-app.get('/api/houser/properties', controller.getAllProperties)
-app.post('/api/houser/newPropertyName', controller.addPropertyName)
-app.post('api/houser/newPropertyDesc', controller.addPropertyDesc)
+//--------Axios Calls--------//
+app.get('/api/logout', (req,res)=>{
+    req.session.destroy(function(err){
+        if(err){
+            console.log(err)
+        } else {
+            res.status(200).send('Logged Out')
+        }
+    })
+})
+
+app.post('/api/login', (req,res)=>{
+    const db = app.get('db')
+    db.verifyUser([req.body.username, req.body.password])
+    .then(resp=>{
+        let user = resp[0]
+        if(user){
+            req.session.user = user
+        }
+        res.status(200).send(resp[0])
+    })
+    .catch(console.log)
+})
 
 //--------Listen--------//
 app.listen(port,()=>{

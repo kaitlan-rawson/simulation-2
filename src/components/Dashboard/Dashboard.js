@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import  { Link } from 'react-router-dom'
+import axios from 'axios'
 
 import routes from '../../routes'
 import image from '../../Images/header_logo.png'
@@ -8,11 +9,17 @@ import HomeListings from './HomeListings'
 
 class Dashboard extends Component {
     
+    handleLogout(){
+        axios.get('/api/logout')
+            .then(res=>{
+                this.props.history.push('/')
+            })
+    }
     render(){
         return(
             <div className = 'dashboard'>
             Dashboard 
-                <Link to = '/'><button className = 'logout'>Logout</button></Link>
+                <button className = 'logout' onClick = {()=>this.handleLogout()}>Logout</button>
                 <div>
                     <Link to = '/wizard/1'><button className = 'add-property'> Add new property </button></Link>
                 </div>

@@ -1,22 +1,51 @@
 import React, { Component } from 'react'
-import  { Link } from 'react-router-dom'
+import axios from 'axios'
 import image from '../../Images/auth_logo.png'
 
 
 class Home extends Component {
+    constructor(props){
+        super(props);
     
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
+
+    handleInput(e){
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
+
+    handleLogin(){
+        axios.post('/api/login', {username: this.state.username, password: this.state.password})
+        .then(res=>{
+            if(res.data){
+                this.props.history.push('/dashboard')
+            } else {
+                alert('Wrong username or password')
+                this.setState({
+                    username: '',
+                    password: ''
+                })
+            }
+        })
+    }
+
     render(){
         return(
             <div className = 'houser'>
                 <img className = 'home-logo' src = {image}/>
                 <div className = 'username'> Username
-                    <input id = 'username-input' type = 'email'/>
+                    <input name = 'username' type = 'email' onChange = {(e)=>this.handleInput(e)} value = {this.state.username}/>
                 </div>
                 <div className = 'password'> Password
-                    <input id = 'password-input' type = 'password'/>
+                    <input name = 'password' type = 'password' onChange = {(e)=>this.handleInput(e)}  value = {this.state.password}/>
                 </div>
-                <Link to = './dashboard'><button className = 'login'> Login </button></Link>
-                <Link to = '/dashboard'><button className = 'register'> Register </button></Link>
+                <button className = 'login' onClick = {()=>this.handleLogin()}> Login </button>
+                <button className = 'register'> Register </button>
             </div>
         )
     }
