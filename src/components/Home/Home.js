@@ -34,6 +34,21 @@ class Home extends Component {
         })
     }
 
+    registerUser(){
+        axios.post('/api/register', {username: this.state.username, password: this.state.password})
+        .then(res=>{
+            this.props.history.push('/dashboard')
+        })
+        .catch((err)=>{
+            console.log(err)
+            alert('Username taken')
+            this.setState({
+                username: '',
+                password: ''
+            })
+        })
+    }
+
     render(){
         return(
             <div className = 'houser'>
@@ -45,7 +60,7 @@ class Home extends Component {
                     <input name = 'password' type = 'password' onChange = {(e)=>this.handleInput(e)}  value = {this.state.password}/>
                 </div>
                 <button className = 'login' onClick = {()=>this.handleLogin()}> Login </button>
-                <button className = 'register'> Register </button>
+                <button className = 'register' onClick = {()=>this.registerUser()}> Register </button>
             </div>
         )
     }

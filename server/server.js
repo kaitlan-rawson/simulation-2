@@ -10,7 +10,10 @@ const express = require('express'),
     require('dotenv').config()
 
 //--------Middleware--------//
-massive(process.env.CONNECTION_STRING).then(db=>{app.set('db',db)})
+massive(process.env.CONNECTION_STRING).then(db=>{
+    app.set('db',db)
+    console.log('db connected')
+})
 
 app.use(bodyParser.json());
 app.use(express.static( `${__dirname}../build` ));
@@ -39,9 +42,26 @@ app.post('/api/login', (req,res)=>{
         if(user){
             req.session.user = user
         }
-        res.status(200).send(resp[0])
+        res.status(200).send(user)
     })
     .catch(console.log)
+})
+
+app.post('/api/register', (req,res)=>{
+    const db = app.get('db')
+    db.users.findOne({username: req.body.username})
+    .then(resp=>{
+        if(resp){
+            res.status(409).send('Username taken')
+        } else {     
+            db.addUser([req.body.username, req.body.password])
+            .then(resp=>{
+                let user = resp[0]
+                req.session.user = user
+                res.status(200).send(user)
+            })
+            .catch(console.log)}
+    })
 })
 
 //--------Listen--------//
