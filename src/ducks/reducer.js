@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const initialState = {
     propertyName: '',
     propertyDesc: '',
@@ -15,8 +17,7 @@ const initialState = {
 
 //--------Action Keepers--------// 
 
-const PROPERTY_NAME = 'PROPERTY_NAME'
-const PROPERTY_DESC = 'PROPERTY_DESC'
+const PROPERTY_NAME_DESC = 'PROPERTY_NAME_DESC'
 const ADDRESS = 'ADDRESS'
 const CITY = 'CITY'
 const STATE = 'STATE'
@@ -30,17 +31,13 @@ const LISTINGS = 'LISTINGS'
 
 //--------Action Creators--------// 
 
-export function updatePropertyName(name){
+export function updatePropertyNameDesc(name,desc){
     return{
-        type: PROPERTY_NAME,
-        payload: name
-    }
-}
-
-export function updatePropertyDesc(desc){
-    return{
-        type: PROPERTY_DESC,
-        payload: desc
+        type: PROPERTY_NAME_DESC,
+        payload: axios.post('/api/updatePropNameDesc', {propertyName: name, propertyDesc: desc})
+        .then(res=>{
+            return res
+        })
     }
 }
 
@@ -49,7 +46,7 @@ export function updatePropertyDesc(desc){
 
 function reducer(state=initialState, action){
     switch(action.type){
-        case PROPERTY_NAME:
+        case PROPERTY_NAME_DESC + '_FULFILLED':
             return Object.assign({},state,{propertyName: action.payload})
         default: 
             return state

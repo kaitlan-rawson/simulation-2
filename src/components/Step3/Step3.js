@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+import Nav from '../Nav/Nav'
+
 class Step3 extends Component {
     
     render(){
         return(
             <div>
-                   <Link to = '/'><button className = 'logout'>Logout</button></Link>
-                   <Link to = '/dashboard'><button className = 'logout'>Cancel</button></Link>
+                    <Nav history = {this.props.history}/>
+                    <Link to = '/'><button className = 'logout'>Logout</button></Link>
+                    <Link to = '/dashboard'><button className = 'logout'>Cancel</button></Link>
                 IMAGE HERE
                 <div className = 'steps'>
                     Image Url

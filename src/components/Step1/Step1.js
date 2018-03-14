@@ -1,28 +1,49 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { updatePropertyName, updatePropertyDesc } from '../../ducks/reducer'
+import { updatePropertyNameDesc} from '../../ducks/reducer'
 import axios from 'axios'
 
+import Nav from '../Nav/Nav'
+
 class Step1 extends Component {
+    constructor(props){
+        super(props);
     
+        this.state = {
+            propertyName: '',
+            propertyDesc: ''
+        }
+    }
+
+        handleInput(e){
+            this.setState({
+                [e.target.name]: e.target.value
+            })
+        }
+
+        handleUpdate(){
+            console.log(this.state.propertyDesc)
+            this.props.updatePropertyNameDesc(this.state.propertyName, this.state.propertyDesc)
+        }
 
     render(){
         return(
             <div>
+                <Nav history = {this.props.history}/>
                 Add a new Listing
-                <Link to = '/'><button className = 'logout'>Logout</button></Link>
                 <Link to = '/dashboard'><button className = 'logout'>Cancel</button></Link>
                 <div className = 'step1'>Step 1</div>
                 <div className = 'steps'> Property Name 
-                    <div><input/></div>
+                    <div><input name = 'propertyName' onChange = {(e)=>this.handleInput(e)} /></div>
                 </div>
                 <div className = 'steps'> Property Description 
-                    <div><input/></div>
+                    <div><input name = 'propertyDesc' onChange = {(e)=>this.handleInput(e)}/></div>
                 </div>
                 <div className = 'step-button'>
                     <Link to = '/wizard/2'><button 
-                        className = 'next-step'>Next Step</button></Link>
+                        className = 'next-step'
+                        onClick = {()=>this.handleUpdate()}>Next Step</button></Link>
                 </div>
             </div>
         )
@@ -30,10 +51,10 @@ class Step1 extends Component {
 }
 
 function mapStateToProps(state){
-    console.log(state)
     return{
         propertyName: state.propertyName,
+        propertyDesc: state.propertyDesc
     }
 
 }
-export default connect(mapStateToProps, {updatePropertyName,updatePropertyDesc})(Step1)
+export default connect(mapStateToProps, {updatePropertyNameDesc})(Step1)

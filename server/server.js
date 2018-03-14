@@ -64,6 +64,15 @@ app.post('/api/register', (req,res)=>{
     })
 })
 
+app.post('/api/updatePropNameDesc', (req,res)=>{
+    const db = app.get('db')
+    db.updatePropNameDesc([req.body.propertyName, req.body.propertyDesc, req.session.user.userid])
+    .then(resp=>{
+        console.log(resp)
+        res.status(200).send(resp)
+    })
+})
+
 //--------Listen--------//
 app.listen(port,()=>{
     console.log(`Listening on port ${port}`)

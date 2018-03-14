@@ -5,21 +5,16 @@ import axios from 'axios'
 import routes from '../../routes'
 import image from '../../Images/header_logo.png'
 import HomeListings from './HomeListings'
+import Nav from '../Nav/Nav'
 
 
 class Dashboard extends Component {
     
-    handleLogout(){
-        axios.get('/api/logout')
-            .then(res=>{
-                this.props.history.push('/')
-            })
-    }
     render(){
         return(
             <div className = 'dashboard'>
+            <Nav history = {this.props.history}/>
             Dashboard 
-                <button className = 'logout' onClick = {()=>this.handleLogout()}>Logout</button>
                 <div>
                     <Link to = '/wizard/1'><button className = 'add-property'> Add new property </button></Link>
                 </div>

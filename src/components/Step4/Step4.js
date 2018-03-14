@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
+import Nav from '../Nav/Nav'
 class Step4 extends Component {
     
     render(){
         return(
             <div>
+                <Nav history = {this.props.history}/>
                 Add new listing
                 <Link to = '/'><button className = 'logout'>Logout</button></Link>
                 <Link to = '/dashboard'><button className = 'logout'>Cancel</button></Link>
